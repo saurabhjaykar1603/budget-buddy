@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const TransactionSchema = new Schema({
   amount: {
-    type: number,
+    type: Number,
     required: true,
   },
   transactionType: {
