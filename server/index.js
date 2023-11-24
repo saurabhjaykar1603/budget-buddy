@@ -40,6 +40,15 @@ app.post("/api/transactions", async (req, res) => {
   }
 });
 
+app.get("/api/transactions", async (req, res) => {
+  const transaction = await Transaction.find({});
+  res.json({
+    success: true,
+    data: transaction,
+    message: "Transaction fetch successfully",
+  });
+});
+
 app.get("/api/health", (req, res) => {
   res.json({
     success: true,
