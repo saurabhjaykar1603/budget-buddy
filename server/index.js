@@ -3,7 +3,11 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
-import Transaction from "./models/Transaction.js";
+import { getApiHealth } from "./controllers/health.js";
+import {
+  postApiTransaction,
+  getApiTransactions,
+} from "./controllers/transaction.js";
 
 const app = express();
 
@@ -17,44 +21,11 @@ const connDB = async () => {
 };
 
 // post : /api/transactions
-app.post("/api/transactions", async (req, res) => {
-  const { amount, transactionType, category, description } = req.body;
-  const transaction = new Transaction({
-    amount,
-    transactionType,
-    category: category || "other",
-    description,
-  });
-  try {
-    const savedTransaction = await transaction.save();
-    res.json({
-      success: true,
-      data: savedTransaction,
-      message: "Transaction saved successfully",
-    });
-  } catch (err) {
-    res.json({
-      success: false,
-      message: err.message,
-    });
-  }
-});
+app.post("/api/transactions", postApiTransaction);
 
-app.get("/api/transactions", async (req, res) => {
-  const transaction = await Transaction.find({});
-  res.json({
-    success: true,
-    data: transaction,
-    message: "Transaction fetch successfully",
-  });
-});
+app.get("/api/transactions", getApiTransactions);
 
-app.get("/api/health", (req, res) => {
-  res.json({
-    success: true,
-    message: "status OK",
-  });
-});
+app.get("/api/health", getApiHealth);
 
 const PORT = process.env.PORT || 8080;
 
