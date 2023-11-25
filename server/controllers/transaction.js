@@ -1,4 +1,5 @@
 import Transaction from "../models/Transaction.js";
+import { responder } from "./../utils.js";
 
 const postApiTransaction = async (req, res) => {
   const { amount, transactionType, category, description } = req.body;
@@ -10,13 +11,14 @@ const postApiTransaction = async (req, res) => {
   });
   try {
     const savedTransaction = await transaction.save();
-    res.json({
+    return responder({
+      res,
       success: true,
-      data: savedTransaction,
       message: "Transaction saved successfully",
+      data: savedTransaction,
     });
   } catch (err) {
-    res.json({
+    return responder({
       success: false,
       message: err.message,
     });
@@ -24,12 +26,13 @@ const postApiTransaction = async (req, res) => {
 };
 
 const getApiTransactions = async (req, res) => {
-    const transaction = await Transaction.find({});
-    res.json({
-      success: true,
-      data: transaction,
-      message: "Transaction fetch successfully",
-    });
-  }
+  const transaction = await Transaction.find({});
+  return responder({
+    res,
+    success: true,
+    data: transaction,
+    message: "Transaction fetch successfully",
+  });
+};
 
-export { postApiTransaction ,getApiTransactions };
+export { postApiTransaction, getApiTransactions };

@@ -1,8 +1,7 @@
+import { responder } from "./../utils.js";
+
 const getApiHealth = async (req, res) => {
-  res.json({
-    success: true,
-    message: "status OK",
-  });
+  return responder({ res, success: true, message: "status ok" });
 };
 
 export { getApiHealth };
