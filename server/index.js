@@ -5,7 +5,8 @@ dotenv.config();
 
 import { getApiHealth } from "./controllers/health.js";
 import {
-  postApiTransaction,
+  postApiv1Transaction,
+  postApiv2Transaction,
   getApiTransactions,
 } from "./controllers/transaction.js";
 
@@ -23,10 +24,11 @@ const connDB = async () => {
 };
 // Users Endpoints
 app.post("/api/v1/signups", postApiv1Signup);
-app.post("/api/v1/logins", postApiv1Login);
+app.post("/api/v1/logins", postApiv1Login); 
 
 // post : /api/transactions
-app.post("/api/transactions", postApiTransaction);
+app.post("/api/v1/transactions", postApiv1Transaction);
+app.post("/api/v2/transactions", postApiv2Transaction); // v2 add user reference
 
 app.get("/api/transactions", getApiTransactions);
 

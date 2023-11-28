@@ -1,9 +1,34 @@
 import Transaction from "../models/Transaction.js";
 import { responder } from "./../utils.js";
 
-const postApiTransaction = async (req, res) => {
+const postApiv1Transaction = async (req, res) => {
   const { amount, transactionType, category, description } = req.body;
   const transaction = new Transaction({
+    amount,
+    transactionType,
+    category: category || "other",
+    description,
+  });
+  try {
+    const savedTransaction = await transaction.save();
+    return responder({
+      res,
+      success: true,
+      message: "Transaction saved successfully",
+      data: savedTransaction,
+    });
+  } catch (err) {
+    return responder({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
+const postApiv2Transaction = async (req, res) => {
+  const { user, amount, transactionType, category, description } = req.body;
+  const transaction = new Transaction({
+    user,
     amount,
     transactionType,
     category: category || "other",
@@ -35,4 +60,4 @@ const getApiTransactions = async (req, res) => {
   });
 };
 
-export { postApiTransaction, getApiTransactions };
+export { postApiv1Transaction, getApiTransactions, postApiv2Transaction };
