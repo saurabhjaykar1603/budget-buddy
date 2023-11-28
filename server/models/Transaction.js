@@ -12,7 +12,7 @@ const TransactionSchema = new Schema({
   },
   category: {
     type: String,
-    enum: ["food", "entertainment", "travel", "shopping", "education", "other"],
+    enum: ["food", "entertainment", "travel", "shopping", "education", "other", "freelancing", "salary", "gift"],
     default: "other",
   },
   description: {
