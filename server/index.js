@@ -8,6 +8,7 @@ import {
   postApiv1Transaction,
   postApiv2Transaction,
   getApiTransactions,
+  getApiTransactionById
 } from "./controllers/transaction.js";
 
 import { postApiv1Signup, postApiv1Login } from "./controllers/user.js";
@@ -29,6 +30,7 @@ app.post("/api/v1/logins", postApiv1Login);
 // post : /api/transactions
 app.post("/api/v1/transactions", postApiv1Transaction);
 app.post("/api/v2/transactions", postApiv2Transaction); // v2 add user reference
+app.get("/api/v1/transactions/user/:id", getApiTransactionById); 
 
 app.get("/api/transactions", getApiTransactions);
 
