@@ -9,7 +9,7 @@ import {
   getApiTransactions,
 } from "./controllers/transaction.js";
 
-import {postApiv1Signup} from "./controllers/user.js"
+import { postApiv1Signup, postApiv1Login } from "./controllers/user.js";
 
 const app = express();
 
@@ -23,6 +23,7 @@ const connDB = async () => {
 };
 // Users Endpoints
 app.post("/api/v1/signups", postApiv1Signup);
+app.post("/api/v1/logins", postApiv1Login);
 
 // post : /api/transactions
 app.post("/api/transactions", postApiTransaction);

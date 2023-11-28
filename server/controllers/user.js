@@ -24,4 +24,38 @@ const postApiv1Signup = async (req, res) => {
   }
 };
 
-export {postApiv1Signup}
+const postApiv1Login = async (req, res) => {
+  const { email, password } = req.body;
+  if (!password || !email) {
+    return res.status(203).json({
+      success: false,
+      message: "Please provide  email and password",
+    });
+  }
+  try {
+    const user = await User.findOne({
+      email: email,
+      password: password,
+    }).select("userName email password");
+
+    if (user) {
+      return res.status(200).json({
+        success: true,
+        data: user,
+        message: "you have logged in successfully",
+      });
+    } else {
+      return res.status(203).json({
+        success: false,
+        message: "invalid credentials",
+      });
+    }
+  } catch (err) {
+    res.status(404).json({
+      success: false,
+      message: err.message,
+    })
+  }
+};
+
+export { postApiv1Signup, postApiv1Login };
