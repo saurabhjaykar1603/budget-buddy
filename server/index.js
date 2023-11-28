@@ -9,6 +9,8 @@ import {
   getApiTransactions,
 } from "./controllers/transaction.js";
 
+import {postApiv1Signup} from "./controllers/user.js"
+
 const app = express();
 
 app.use(express.json());
@@ -19,6 +21,8 @@ const connDB = async () => {
     console.log(" Mongodb connected successfully ");
   }
 };
+// Users Endpoints
+app.post("/api/v1/signups", postApiv1Signup);
 
 // post : /api/transactions
 app.post("/api/transactions", postApiTransaction);
