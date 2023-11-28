@@ -19,6 +19,11 @@ const userSchema = new Schema(
       required: true,
       lowercase: true,
     },
+    mobileNumber: {
+      type: Number,
+      required: true,
+      lowercase: true,
+    },
     bankName: {
       type: String,
       enum: [
