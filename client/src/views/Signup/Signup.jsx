@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import "./Signup.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import showToast from "crunchy-toast";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -10,6 +12,54 @@ function Signup() {
   const [mobile, setMobile] = useState("");
   const [city, setCity] = useState("");
   const [bank, setBank] = useState("other");
+
+  async function signupUser() {
+    if (!name) {
+      showToast("name is required", "alert", 4000);
+      return;
+    }
+    if (!email) {
+      showToast("email is required", "alert", 4000);
+      return;
+    }
+    if (!password) {
+      showToast("password is required", "alert", 4000);
+      return;
+    }
+    if (!mobile) {
+      showToast("mobile number is required", "alert", 4000);
+      return;
+    }
+    if (!city) {
+      showToast("city is required", "alert", 4000);
+      return;
+    }
+    const response = await axios.post(
+      `${import.meta.env.VITE_SERVER_URL}/api/v1/signups`,
+      {
+        userName: name,
+        email: email,
+        password: password,
+        mobileNumber: mobile,
+        city: city,
+        bankName: bank,
+      }
+    );
+    console.log(response.data);
+    if (response.data.success) {
+      showToast(response.data.message, "success", 3000);
+      window.location.href = "/login";
+    } else {
+      showToast(response.data.message, "alert", 3000);
+
+      setName("");
+      setEmail("");
+      setMobile("");
+      setPassword("");
+      setCity("");
+      setBank("");
+    }
+  }
 
   return (
     <>
@@ -101,6 +151,7 @@ function Signup() {
           <button
             className="rounded-sm bg-red-600 hover:bg-red-500 text-xl"
             type="button"
+            onClick={signupUser}
           >
             Sign up
           </button>
