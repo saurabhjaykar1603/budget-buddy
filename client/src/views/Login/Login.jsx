@@ -1,10 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
+import showToast from "crunchy-toast";
+import axios from "axios";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const getloggedInUser = JSON.parse(localStorage.getItem("user" || "{}"));
+    if (getloggedInUser) {
+      alert("You have already logged in");
+      window.location.href = "/";
+    }
+  }, []);
+
+  const loginUser = async () => {
+    if (!email) {
+      showToast("email is required", "alert", 4000);
+      return;
+    }
+    if (!password) {
+      showToast("password is required", "alert", 4000);
+      return;
+    }
+    const response = await axios.post(
+      `${import.meta.env.VITE_SERVER_URL}/api/v1/logins`,
+      {
+        email,
+        password,
+      }
+    );
+    console.log(response?.data?.data);
+
+    if (response?.data?.success) {
+      showToast(response.data.message, "success", 4000);
+      localStorage.setItem("user", JSON.stringify(response?.data?.data));
+      window.location.href = "/add_translations";
+    } else {
+      showToast(response.data.message, "warning", 4000);
+    }
+  };
   return (
     <>
       <div>
@@ -39,6 +76,7 @@ function Login() {
           <button
             className="rounded-sm bg-red-600 hover:bg-red-500 text-xl"
             type="button"
+            onClick={loginUser}
           >
             Login
           </button>
