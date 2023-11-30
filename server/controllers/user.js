@@ -1,13 +1,14 @@
 import User from "../models/User.js";
 
 const postApiv1Signup = async (req, res) => {
-  const { userName, email, password, bankName, city } = req.body;
+  const { userName, email, password, bankName, city, mobileNumber } = req.body;
   const user = new User({
     userName,
     email,
     password,
     bankName,
     city,
+    mobileNumber,
   });
 
   try {
@@ -54,7 +55,7 @@ const postApiv1Login = async (req, res) => {
     res.status(404).json({
       success: false,
       message: err.message,
-    })
+    });
   }
 };
 
