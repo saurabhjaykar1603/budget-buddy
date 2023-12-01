@@ -1,11 +1,36 @@
 import React, { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
+import showToast from "crunchy-toast";
+import axios from "axios";
 
 function AddTransaction() {
   const [amount, setAmount] = useState("");
   const [TransactionType, setTransactionType] = useState("");
   const [category, setCategory] = useState("other");
   const [description, setDescripton] = useState("");
+
+  const PostTransaction = async () => {
+    if (!amount) {
+      showToast("amount is required", "alert", 4000);
+      return;
+    }
+    if (!TransactionType) {
+      showToast("Transaction Type is required", "alert", 4000);
+      return;
+    }
+    const user = JSON.parse(localStorage.getItem("user" || "{}"));
+    const response = await axios.post(
+      `${import.meta.env.VITE_SERVER_URL}/api/v2/transactions`,
+      {
+        user: user._id,
+        amount: amount,
+        transactionType: TransactionType,
+        category: category,
+        description: description,
+      }
+    );
+    console.log(response?.data);
+  };
 
   return (
     <div>
@@ -106,7 +131,11 @@ function AddTransaction() {
               onChange={(e) => setDescripton(e.target.value)}
             ></textarea>
           </div>
-          <button className="mx-auto mt-5  block bg-red-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue hover:bg-red-600 active:bg-blue-700">
+          <button
+            type="button"
+            className="mx-auto mt-5  block bg-red-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue hover:bg-red-600 active:bg-blue-700"
+            onClick={PostTransaction}
+          >
             Add Transaction
           </button>
         </div>
