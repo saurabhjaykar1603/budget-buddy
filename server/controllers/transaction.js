@@ -62,9 +62,7 @@ const getApiTransactions = async (req, res) => {
 
 const getApiTransactionById = async (req, res) => {
   const { id } = req.params;
-  const findUser = await Transaction.find({ user: id }).populate(
-    "user"
-  );
+  const findUser = await Transaction.find({ user: id }).populate("user");
 
   findUser.forEach((transaction) => {
     transaction.user.password = undefined;
@@ -76,9 +74,27 @@ const getApiTransactionById = async (req, res) => {
   });
 };
 
+const deleteApiv1TransactionById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await Transaction.deleteOne({ _id: id });
+    res.status(200).json({
+      success: true,
+      message: "Transaction deleted successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
 export {
   postApiv1Transaction,
   getApiTransactions,
   postApiv2Transaction,
   getApiTransactionById,
+  deleteApiv1TransactionById,
 };
