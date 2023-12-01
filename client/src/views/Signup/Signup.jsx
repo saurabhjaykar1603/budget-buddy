@@ -13,6 +13,14 @@ function Signup() {
   const [city, setCity] = useState("");
   const [bank, setBank] = useState("other");
 
+  useEffect(() => {
+    const getloggedInUser = JSON.parse(localStorage.getItem("user" || "{}"));
+    if (getloggedInUser) {
+      alert("You have already logged in");
+      window.location.href = "/";
+    }
+  }, []);
+
   async function signupUser() {
     if (!name) {
       showToast("name is required", "alert", 4000);
