@@ -8,6 +8,14 @@ function AddTransaction() {
   const [TransactionType, setTransactionType] = useState("");
   const [category, setCategory] = useState("other");
   const [description, setDescripton] = useState("");
+  
+  useEffect (() => {
+    const getloggedInUser = JSON.parse(localStorage.getItem("user" || "{}"));
+    if (!getloggedInUser) {
+      alert("login first");
+      window.location.href = "/login";
+    }
+  }, []);
 
   const PostTransaction = async () => {
     if (!amount) {
