@@ -12,7 +12,7 @@ function Login() {
     const getloggedInUser = JSON.parse(localStorage.getItem("user" || "{}"));
     if (getloggedInUser) {
       alert("You have already logged in");
-      window.location.href = "/";
+      window.location.href = "/show_translations";
     }
   }, []);
 
