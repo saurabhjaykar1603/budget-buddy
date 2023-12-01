@@ -90,11 +90,39 @@ const deleteApiv1TransactionById = async (req, res) => {
     });
   }
 };
-
+const putApiv1TransactionById = async (req, res) => {
+  const { id } = req.params;
+  const { amount, transactionType, category, description } = req.body;
+  await Transaction.updateOne(
+    { _id: id },
+    {
+      $set: {
+        amount,
+        transactionType,
+        category,
+        description,
+      },
+    }
+  );
+  try {
+    const updateTransaction = await Transaction.findOne({ _id: id });
+    return res.status(200).json({
+      success: true,
+      data: updateTransaction,
+      message: "Transaction updated successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
 export {
   postApiv1Transaction,
   getApiTransactions,
   postApiv2Transaction,
   getApiTransactionById,
   deleteApiv1TransactionById,
+  putApiv1TransactionById
 };
