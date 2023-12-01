@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import showToast from "crunchy-toast";
 import axios from "axios";
@@ -29,7 +29,12 @@ function AddTransaction() {
         description: description,
       }
     );
-    console.log(response?.data);
+    if (response?.data?.success) {
+      alert(response?.data?.message);
+      window.location.href = "/show_translations";
+    } else {
+      alert(response?.data?.message);
+    }
   };
 
   return (
