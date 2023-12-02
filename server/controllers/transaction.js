@@ -118,11 +118,36 @@ const putApiv1TransactionById = async (req, res) => {
     });
   }
 };
+
+const getApiv1Transaction = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const findTransaction = await Transaction.findOne({ _id: id });
+
+    if (!findTransaction) {
+      return res.status(404).json({
+        success: false,
+        message: "Transaction not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      data: findTransaction,
+      message: "Transaction found successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
 export {
   postApiv1Transaction,
   getApiTransactions,
   postApiv2Transaction,
   getApiTransactionById,
   deleteApiv1TransactionById,
-  putApiv1TransactionById
+  putApiv1TransactionById,
+  getApiv1Transaction,
 };
