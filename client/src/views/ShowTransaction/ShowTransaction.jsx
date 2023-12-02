@@ -60,8 +60,8 @@ function ShowTransaction() {
           <Navbar />
         </div>
       </div>
-      <h1 className="text-center mt-7 mb-3 text-3xl font-semibold text-red-500">
-        My transaction
+      <h1 className="text-center mt-7 mb-3 lg:text-3xl sm:text-indigo-500, text-3xl ,   lg:font-semibold text-red-500">
+        My transactions
       </h1>
       <div className="  mx-auto w-3/6 bg-gray-10 sm:text-center lg:text-start">
         <p className="">
@@ -99,41 +99,42 @@ function ShowTransaction() {
           gift: "Gift 🎁  ",
         };
         return (
-          <div
-            key={i}
-            className="transaction-card  border-2 my-3 w-3/6 mx-auto p-4 py-6 rounded-md relative"
-            style={{ boxShadow: "3px 3px 2px rgba(0, 0, 0, 0.3)" }}
-          >
-            <p>
-              <span
-                className={`transaction-amt  font-bold ${
-                  transactionType === "debit"
-                    ? "text-red-500"
-                    : "text-green-600"
-                } `}
-              >
-                {transactionType === "debit" ? "-" : "+"} {amount}{" "}
-              </span>
-              <span
-                className={`transaction-amt  font-semibold ${
-                  transactionType === "debit"
-                    ? "text-red-500"
-                    : "text-green-600"
-                } `}
-              >
-                {transactionType === "debit" ? "Debited" : "Credited"}
-              </span>{" "}
-              <span className="font-normal ms-1 text-neutral-600">
-                on {date} at {time}
-              </span>
-            </p>
+          <div className="p-3" key={i}>
+            <div
+              className="transaction-card  border-2 my-3 lg:w-3/6 md:w-4/5  mx-auto p-4 py-6 rounded-md relative"
+              style={{ boxShadow: "3px 3px 2px rgba(0, 0, 0, 0.3)" }}
+            >
+              <p className=" lg:text-base sm:text-base, mt-5 lg:mt-0">
+                <span
+                  className={`transaction-amt  font-bold ${
+                    transactionType === "debit"
+                      ? "text-red-500"
+                      : "text-green-600"
+                  } `}
+                >
+                  {transactionType === "debit" ? "-" : "+"} {amount}{" "}
+                </span>
+                <span
+                  className={`transaction-amt  font-semibold ${
+                    transactionType === "debit"
+                      ? "text-red-500"
+                      : "text-green-600"
+                  } `}
+                >
+                  {transactionType === "debit" ? "Debited" : "Credited"}
+                </span>{" "}
+                <span className="font-normal ms-1 text-neutral-600">
+                  on {date} at {time}
+                </span>
+              </p>
 
-            <p className="absolute top-3 right-4 text-slate-800">
-              {CATEGORY_EMOJI_MAP[category]}
-            </p>
-            <div className="border-b border border-gray-300 my-3"></div>
-            <div className="description-container">
-              <p className="text-gray-800">{description}</p>
+              <p className="absolute top-3 right-4 text-slate-800">
+                {CATEGORY_EMOJI_MAP[category]}
+              </p>
+              <div className="border-b border border-gray-300 my-3"></div>
+              <div className="description-container">
+                <p className="text-gray-800">{description}</p>
+              </div>
             </div>
           </div>
         );
