@@ -51,7 +51,7 @@ function AddTransaction() {
         <Navbar />
       </div>
       <div className=" mx-auto addtransaction-text">
-        <h1 className="text-center mt-24  sm:text-3xl  font-bold text-xl text-red-500  ">
+        <h1 className="text-center mt-10  sm:text-3xl  font-bold text-xl text-red-500  ">
           Add Your Transactions
         </h1>
       </div>
