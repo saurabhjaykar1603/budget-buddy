@@ -33,7 +33,6 @@ const TransactionSchema = new Schema(
     },
     description: {
       type: String,
-      required: true,
     },
   },
   {
