@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
 import deletePng from "./delete.png";
+import editPng from "./edit.png";
 
 function ShowTransaction() {
   const [user, setUser] = useState({});
@@ -153,6 +154,18 @@ function ShowTransaction() {
                   deleteTransition(_id);
                 }}
               />
+
+              {/* there anchore tag use for redirection to transaction id at  /update_translations path */}
+              <a href={`/update_translations/${_id}`} target="blank">
+                <img
+                  src={editPng}
+                  alt="deletePng"
+                  className="absolute bottom-3 right-16 h-7   cursor-pointer "
+                  onClick={() => {
+                    editTransition(_id);
+                  }}
+                />{" "}
+              </a>
             </div>
           </div>
         );
