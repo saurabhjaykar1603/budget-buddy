@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
+import deletePng from "./delete.png";
 
 function ShowTransaction() {
   const [user, setUser] = useState({});
@@ -53,6 +54,15 @@ function ShowTransaction() {
     }
   }, []);
 
+  const deleteTransition = async (_id) => {
+    const response = await axios.delete(
+      `${import.meta.env.VITE_SERVER_URL}/api/v1/transactions/${_id}`
+    );
+    if (response?.data?.message) {
+      loadMyTransaction();
+    }
+  };
+
   return (
     <div>
       <div>
@@ -60,7 +70,7 @@ function ShowTransaction() {
           <Navbar />
         </div>
       </div>
-      <h1 className="text-center mt-7 mb-3 lg:text-3xl sm:text-indigo-500, text-3xl ,   lg:font-semibold text-red-500">
+      <h1 className="text-center mt-7 mb-3 lg:text-3xl sm:text-indigo-500, text-3xl ,lg:font-semibold text-red-500">
         My transactions
       </h1>
       <div className="  mx-auto w-3/6 bg-gray-10 sm:text-center lg:text-start">
@@ -135,6 +145,14 @@ function ShowTransaction() {
               <div className="description-container">
                 <p className="text-gray-800">{description}</p>
               </div>
+              <img
+                src={deletePng}
+                alt="deletePng"
+                className="absolute bottom-2 right-5 h-8 p-1 bg-slate-100 border-2 border-red-400 rounded-full cursor-pointer shadow-lg"
+                onClick={() => {
+                  deleteTransition(_id);
+                }}
+              />
             </div>
           </div>
         );
