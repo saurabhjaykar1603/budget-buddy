@@ -8,8 +8,8 @@ function AddTransaction() {
   const [TransactionType, setTransactionType] = useState("");
   const [category, setCategory] = useState("other");
   const [description, setDescripton] = useState("");
-  
-  useEffect (() => {
+
+  useEffect(() => {
     const getloggedInUser = JSON.parse(localStorage.getItem("user" || "{}"));
     if (!getloggedInUser) {
       alert("login first");
@@ -51,106 +51,108 @@ function AddTransaction() {
         <Navbar />
       </div>
       <div className=" mx-auto addtransaction-text">
-        <h1 className="text-center mt-6  sm:text-3xl  font-bold text-xl text-red-500  ">
+        <h1 className="text-center mt-24  sm:text-3xl  font-bold text-xl text-red-500  ">
           Add Your Transactions
         </h1>
       </div>
 
-      <div
-        className=" w-96 h-auto mx-auto mt-8 p-5 rounded-md"
-        style={{ boxShadow: "2px 2px 8px rgb(0,0,0,0.3)" }}
-      >
-        <div className="form-container">
-          <div className="pt-2 text-center ">
-            <input
-              type="number"
-              className="w-80  border  bg-white  border-red-400 rounded-md p-2 focus:outline-none focus:ring focus:border-blue-200 "
-              placeholder="Enter Amount (₹)"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
-          </div>
-          <div className="  w-80 mx-auto  mt-6 ">
-            <div className="ms-4">
-              <p className="text-start text-lg text-slate-700">
-                Select Transaction Type :
-              </p>
-            </div>
-            <div className="flex items-center gap-x-3 justify-start ms-4 mt-3">
+      <div className="">
+        <div
+          className=" w-full sm:w-96 md:w-96 lg:w-96 xl:w-96 2xl:w-96 h-auto mx-auto mt-10 p-4 rounded-md"
+          style={{ boxShadow: "2px 2px 8px rgb(0,0,0,0.3)" }}
+        >
+          <div className="form-container">
+            <div className="pt-2 text-center ">
               <input
-                id="push-debit"
-                name="transaction-type"
-                type="radio"
-                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                checked={TransactionType === "debit"}
-                onClick={() => {
-                  setTransactionType("debit");
-                }}
+                type="number"
+                className="w-80  border  bg-white  border-red-400 rounded-md p-2 focus:outline-none focus:ring focus:border-blue-200 "
+                placeholder="Enter Amount (₹)"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
               />
-              <label
-                htmlFor="push-debit"
-                className="block text-base  font-medium leading-6 text-gray-700"
-              >
-                Debit
-              </label>
-
-              <input
-                id="push-credit"
-                name="transaction-type"
-                type="radio"
-                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                checked={TransactionType === "credit"}
-                onClick={() => {
-                  setTransactionType("credit");
-                }}
-              />
-              <label
-                htmlFor="push-credit"
-                className="block text-base  font-medium leading-6 text-gray-700"
-              >
-                Credit
-              </label>
             </div>
-          </div>
+            <div className="  w-80 mx-auto  mt-6 ">
+              <div className="ms-4">
+                <p className="text-start text-lg text-slate-700">
+                  Select Transaction Type :
+                </p>
+              </div>
+              <div className="flex items-center gap-x-3 justify-start ms-4 mt-3">
+                <input
+                  id="push-debit"
+                  name="transaction-type"
+                  type="radio"
+                  className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                  checked={TransactionType === "debit"}
+                  onClick={() => {
+                    setTransactionType("debit");
+                  }}
+                />
+                <label
+                  htmlFor="push-debit"
+                  className="block text-base  font-medium leading-6 text-gray-700"
+                >
+                  Debit
+                </label>
 
-          <div className="mt-6 text-center ">
-            <select
-              className="w-80  text-gray-700 border  bg-white  border-red-400 rounded-md p-3 focus:outline-none focus:ring focus:border-blue-200 "
-              name="category"
-              value={category}
-              onChange={(e) => {
-                setCategory(e.target.value);
-              }}
+                <input
+                  id="push-credit"
+                  name="transaction-type"
+                  type="radio"
+                  className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                  checked={TransactionType === "credit"}
+                  onClick={() => {
+                    setTransactionType("credit");
+                  }}
+                />
+                <label
+                  htmlFor="push-credit"
+                  className="block text-base  font-medium leading-6 text-gray-700"
+                >
+                  Credit
+                </label>
+              </div>
+            </div>
+
+            <div className="mt-6 text-center ">
+              <select
+                className="w-80  text-gray-700 border  bg-white  border-red-400 rounded-md p-3 focus:outline-none focus:ring focus:border-blue-200 "
+                name="category"
+                value={category}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+              >
+                <option value="other" disabled>
+                  Select Category Here
+                </option>
+                <option value="food">Food</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="travel">Travel</option>
+                <option value="shopping">Shopping</option>
+                <option value="education">Education</option>
+                <option value="freelancing">Freelancing</option>
+                <option value="salary">Salary</option>
+                <option value="gift">Gift</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div className="text-center mt-7">
+              <textarea
+                class="border w-80 border-red-400 rounded-md p-2 resize-none focus:outline-none focus:ring focus:border-blue-500"
+                placeholder="Enter your Description Here"
+                value={description}
+                onChange={(e) => setDescripton(e.target.value)}
+              ></textarea>
+            </div>
+            <button
+              type="button"
+              className="mx-auto mt-5  block bg-red-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue hover:bg-red-600 active:bg-blue-700"
+              onClick={PostTransaction}
             >
-              <option value="other" disabled>
-                Select Category Here
-              </option>
-              <option value="food">Food</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="travel">Travel</option>
-              <option value="shopping">Shopping</option>
-              <option value="education">Education</option>
-              <option value="freelancing">Freelancing</option>
-              <option value="salary">Salary</option>
-              <option value="gift">Gift</option>
-              <option value="other">Other</option>
-            </select>
+              Add Transaction
+            </button>
           </div>
-          <div className="text-center mt-7">
-            <textarea
-              class="border w-80 border-red-400 rounded-md p-2 resize-none focus:outline-none focus:ring focus:border-blue-500"
-              placeholder="Enter your Description Here"
-              value={description}
-              onChange={(e) => setDescripton(e.target.value)}
-            ></textarea>
-          </div>
-          <button
-            type="button"
-            className="mx-auto mt-5  block bg-red-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue hover:bg-red-600 active:bg-blue-700"
-            onClick={PostTransaction}
-          >
-            Add Transaction
-          </button>
         </div>
       </div>
     </div>
