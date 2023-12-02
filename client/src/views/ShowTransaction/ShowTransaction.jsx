@@ -1,17 +1,117 @@
-import React from 'react'
-import Navbar from '../../components/Navbar/Navbar'
+import React, { useEffect, useState } from "react";
+import Navbar from "../../components/Navbar/Navbar";
+import axios from "axios";
 
 function ShowTransaction() {
+  const [user, setUser] = useState({});
+  const [myTransaction, setMyTransaction] = useState([]);
+
+  const loadMyTransaction = async () => {
+    const userId = user._id;
+    if (!userId) {
+      return;
+    }
+    const response = await axios.get(
+      `${import.meta.env.VITE_SERVER_URL}/api/v1/transactions/user/${userId}`
+    );
+    console.log(response?.data?.data);
+    setMyTransaction(response?.data?.data);
+  };
+
+  useEffect(
+    () => {
+      loadMyTransaction();
+    },
+    [user],
+    [myTransaction]
+  );
+
+  useEffect(() => {
+    const storageUser = JSON.parse(localStorage.getItem("user" || "{}"));
+    if (storageUser) {
+      setUser(storageUser);
+    } else {
+      alert("Please login first");
+      window.location.href = "/login";
+    }
+  }, []);
+
   return (
     <div>
       <div>
-      <div>
-        <Navbar />
+        <div>
+          <Navbar />
+        </div>
       </div>
-      </div>
-      <h1>show transaction</h1>
+      <h1 className="text-center mt-7 text-3xl font-semibold text-red-500">
+        My transaction
+      </h1>
+
+      {myTransaction?.map((transaction, i) => {
+        const {
+          _id,
+          amount,
+          category,
+          description,
+          transactionType,
+          createdAt,
+        } = transaction;
+
+        const date = new Date(createdAt).toLocaleDateString();
+        const time = new Date(createdAt).toLocaleTimeString();
+        const CATEGORY_EMOJI_MAP = {
+          food: "Food 🍔",
+          entertainment: " Entertainment 🎥",
+          travel: "Travel 🛩",
+          shopping: "Shopping 🛍️",
+          education: "Education 🎓",
+          other: "Other 🤷🏻‍♂️",
+          freelancing: "Freelancing 👩🏻‍💻",
+          salary: "Salary 💼",
+          gift: "Gift 🎁  ",
+        };
+        return (
+          <div
+            key={i}
+            className="transaction-card  border-2 my-3 w-3/6 mx-auto p-4 py-6 rounded-md relative"
+            style={{ boxShadow: "3px 3px 2px rgba(0, 0, 0, 0.3)" }}
+          >
+            <p>
+              <span
+                className={`transaction-amt  font-bold ${
+                  transactionType === "debit"
+                    ? "text-red-500"
+                    : "text-green-600"
+                } `}
+              >
+                {transactionType === "debit" ? "-" : "+"} {amount}{" "}
+              </span>
+              <span
+                className={`transaction-amt  font-semibold ${
+                  transactionType === "debit"
+                    ? "text-red-500"
+                    : "text-green-600"
+                } `}
+              >
+                {transactionType === "debit" ? "Debited" : "Credited"}
+              </span>{" "}
+              <span className="font-normal ms-1 text-neutral-600">
+                on {date} at {time}
+              </span>
+            </p>
+
+            <p className="absolute top-3 right-4 text-slate-800">
+              {CATEGORY_EMOJI_MAP[category]}
+            </p>
+            <div className="border-b border border-gray-300 my-3"></div>
+            <div className="description-container">
+              <p className="text-gray-800">{description}</p>
+            </div>
+          </div>
+        );
+      })}
     </div>
-  )
+  );
 }
 
-export default ShowTransaction
+export default ShowTransaction;
