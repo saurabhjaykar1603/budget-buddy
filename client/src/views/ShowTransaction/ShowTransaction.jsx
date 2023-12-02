@@ -6,6 +6,12 @@ function ShowTransaction() {
   const [user, setUser] = useState({});
   const [myTransaction, setMyTransaction] = useState([]);
 
+  const [debitSum, setDebitSum] = useState("");
+  const [creditSum, setCreditSum] = useState("");
+
+  let totalCredit = 0;
+  let totalDebit = 0;
+
   const loadMyTransaction = async () => {
     const userId = user._id;
     if (!userId) {
@@ -14,8 +20,19 @@ function ShowTransaction() {
     const response = await axios.get(
       `${import.meta.env.VITE_SERVER_URL}/api/v1/transactions/user/${userId}`
     );
-    console.log(response?.data?.data);
-    setMyTransaction(response?.data?.data);
+    const transactionData = response?.data?.data;
+
+    transactionData.forEach((transaction) => {
+      if (transaction.transactionType === "credit") {
+        totalCredit += transaction.amount;
+      } else {
+        totalDebit += transaction.amount;
+      }
+    });
+    setCreditSum(totalCredit);
+    setDebitSum(totalDebit);
+
+    setMyTransaction(transactionData);
   };
 
   useEffect(
@@ -43,9 +60,20 @@ function ShowTransaction() {
           <Navbar />
         </div>
       </div>
-      <h1 className="text-center mt-7 text-3xl font-semibold text-red-500">
+      <h1 className="text-center mt-7 mb-3 text-3xl font-semibold text-red-500">
         My transaction
       </h1>
+      <div className="  mx-auto w-3/6 bg-gray-10 sm:text-center lg:text-start">
+        <p className="">
+          {" "}
+          Total <span className="text-red-600 font-bold">Debit </span> : -{" "}
+          {debitSum}
+        </p>
+        <p className="mt-1">
+          Total <span className="text-green-600 font-bold">Credit </span> :{" "}
+          {creditSum}
+        </p>
+      </div>
 
       {myTransaction?.map((transaction, i) => {
         const {
