@@ -40,6 +40,22 @@ function UpdateTransaction() {
       showToast("Transaction Type is required", "alert", 4000);
       return;
     }
+
+    const updateDetails = {
+      amount: amount,
+      transactionType: transactionType,
+      category: category,
+      description: description,
+    };
+
+    const response = await axios.put(
+      `${import.meta.env.VITE_SERVER_URL}/api/v1/transactions/${id}`,
+      updateDetails
+    );
+    if (response?.data?.message) {
+      window.location.href= "/show_translations"
+      alert(response?.data?.message);
+    }
   };
 
   return (
