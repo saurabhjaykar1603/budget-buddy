@@ -4,6 +4,7 @@ import "./Signup.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import showToast from "crunchy-toast";
+import swal from "sweetalert";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -16,8 +17,13 @@ function Signup() {
   useEffect(() => {
     const getloggedInUser = JSON.parse(localStorage.getItem("user" || "{}"));
     if (getloggedInUser) {
-      alert("You have already logged in");
-      window.location.href = "/";
+      swal({
+        title: `👋 ${getloggedInUser.userName}`,
+        text: "Signup not required – you're already logged in !",
+        icon: "info",
+      }).then(() => {
+        window.location.href = "/";
+      });
     }
   }, []);
 
@@ -53,12 +59,21 @@ function Signup() {
         bankName: bank,
       }
     );
-    console.log(response.data);
-    if (response.data.success) {
-      showToast(response.data.message, "success", 3000);
-      window.location.href = "/login";
+    const { success, message } = response.data; // destructured response object
+    if (success) {
+      swal({
+        title: `Hey ${response.data.data.userName} You are Successfully Signup`,
+        text: "Congratulations! You're now part of our financial journey.🎉",
+        icon: "success",
+      }).then(() => {
+        window.location.href = "/login";
+      });
     } else {
-      showToast(response.data.message, "alert", 3000);
+      swal({
+        title: "Error",
+        text: message,
+        icon: "error",
+      });
 
       setName("");
       setEmail("");

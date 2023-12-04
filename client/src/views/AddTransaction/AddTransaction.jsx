@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import showToast from "crunchy-toast";
 import axios from "axios";
+import swal from "sweetalert";
 
 function AddTransaction() {
   const [amount, setAmount] = useState("");
@@ -11,9 +12,15 @@ function AddTransaction() {
 
   useEffect(() => {
     const getloggedInUser = JSON.parse(localStorage.getItem("user" || "{}"));
+
     if (!getloggedInUser) {
-      alert("login first");
-      window.location.href = "/login";
+      swal({
+        title: `👋 Hey Buddy ! `,
+        text: "Please log in to access the add transaction page",
+        icon: "warning",
+      }).then(() => {
+        window.location.href = "/login";
+      });
     }
   }, []);
 
@@ -38,8 +45,13 @@ function AddTransaction() {
       }
     );
     if (response?.data?.success) {
-      alert(response?.data?.message);
-      window.location.href = "/show_translations";
+      swal({
+        title: `Good Job `,
+        text: "translation added successfully",
+        icon: "success",
+      }).then(() => {
+        window.location.href = "/show_translations";
+      });
     } else {
       alert(response?.data?.message);
     }

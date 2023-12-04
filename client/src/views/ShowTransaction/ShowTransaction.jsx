@@ -50,8 +50,13 @@ function ShowTransaction() {
     if (storageUser) {
       setUser(storageUser);
     } else {
-      alert("Please login first");
-      window.location.href = "/login";
+      swal({
+        title: `👋 Hey Buddy ! `,
+        text: "Please log in to access the show transaction page",
+        icon: "warning",
+      }).then(() => {
+        window.location.href = "/login";
+      });
     }
   }, []);
 
@@ -138,7 +143,6 @@ function ShowTransaction() {
                   on {date} at {time}
                 </span>
               </p>
-
               <p className="absolute top-3 right-4 text-slate-800">
                 {CATEGORY_EMOJI_MAP[category]}
               </p>
@@ -151,21 +155,44 @@ function ShowTransaction() {
                 alt="deletePng"
                 className="absolute bottom-2 right-5 h-8 p-1 bg-slate-100 border-2 border-red-400 rounded-full cursor-pointer shadow-lg"
                 onClick={() => {
-                  deleteTransition(_id);
+                  swal({
+                    title: "Are you sure  ?",
+                    text: "Once deleted, you will not be able to recover this transaction!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                  }).then((willDelete) => {
+                    if (willDelete) {
+                      deleteTransition(_id);
+                    } else {
+                      swal("Your transaction is safe!");
+                    }
+                  });
                 }}
               />
-
               {/* there anchore tag use for redirection to transaction id at  /update_translations path */}
-              <a href={`/update_translations/${_id}`} target="blank">
-                <img
-                  src={editPng}
-                  alt="deletePng"
-                  className="absolute bottom-3 right-16 h-7   cursor-pointer "
-                  onClick={() => {
-                    editTransition(_id);
-                  }}
-                />{" "}
-              </a>
+              <img
+                src={editPng}
+                alt="deletePng"
+                className="absolute bottom-3 right-16 h-7   cursor-pointer "
+                onClick={() => {
+                  return swal({
+                    icon: "info",
+                    title: "Are you sure you want edit transition ?",
+                    buttons: ["Cancel", "Yes"],
+                  }).then((userConfirmed) => {
+                    if (userConfirmed) {
+                      // User clicked "Yes", proceed with edit Transition
+                      window.location.href = `/update_translations/${_id}`;
+
+                      editTransition(_id);
+                    } else {
+                      // User clicked "Cancel"
+                      swal("ok no ploblem ");
+                    }
+                  });
+                }}
+              />{" "}
             </div>
           </div>
         );

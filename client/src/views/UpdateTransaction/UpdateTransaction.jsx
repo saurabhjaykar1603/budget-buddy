@@ -53,8 +53,13 @@ function UpdateTransaction() {
       updateDetails
     );
     if (response?.data?.message) {
-      window.location.href= "/show_translations"
-      alert(response?.data?.message);
+      swal({
+        title: ` Success`,
+        text: "Your translations have been updated successfully",
+        icon: "success",
+      }).then(() => {
+        window.location.href = "/show_translations";
+      });
     }
   };
 

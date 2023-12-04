@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
-import { Link, json } from "react-router-dom";
+import { Link } from "react-router-dom";
 import showToast from "crunchy-toast";
 import axios from "axios";
+import swal from "sweetalert";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -11,8 +12,13 @@ function Login() {
   useEffect(() => {
     const getloggedInUser = JSON.parse(localStorage.getItem("user" || "{}"));
     if (getloggedInUser) {
-      alert("You have already logged in");
-      window.location.href = "/show_translations";
+      swal({
+        title: `👋 ${getloggedInUser.userName}`,
+        text: "Login not required – you're already logged in !",
+        icon: "info",
+      }).then(() => {
+        window.location.href = "/show_translations";
+      });
     }
   }, []);
 
@@ -35,9 +41,14 @@ function Login() {
     console.log(response?.data?.data);
 
     if (response?.data?.success) {
-      showToast(response.data.message, "success", 4000);
+      swal({
+        title: `👋 ${response?.data?.data.userName} ! `,
+        text: "Login Successfull !",
+        icon: "success",
+      }).then(() => {
+        window.location.href = "/add_translations";
+      });
       localStorage.setItem("user", JSON.stringify(response?.data?.data));
-      window.location.href = "/add_translations";
     } else {
       showToast(response.data.message, "warning", 4000);
     }
