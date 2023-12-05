@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
+import path from "path";
+
 import { getApiHealth } from "./controllers/health.js";
 import {
   postApiv1Transaction,
@@ -11,7 +13,7 @@ import {
   getApiTransactionById,
   deleteApiv1TransactionById,
   putApiv1TransactionById,
-  getApiv1Transaction
+  getApiv1Transaction,
 } from "./controllers/transaction.js";
 
 import { postApiv1Signup, postApiv1Login } from "./controllers/user.js";
@@ -31,6 +33,8 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.json());
+
+const __dirname = path.resolve();
 
 const connDB = async () => {
   const conn = await mongoose.connect(process.env.MONGO_DB_URI);
@@ -54,6 +58,14 @@ app.put("/api/v1/transactions/:id", putApiv1TransactionById);
 app.get("/api/transactions", getApiTransactions);
 
 app.get("/api/health", getApiHealth);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "..", "client", "dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "client", "dist", "index.html"));
+  });
+}
 
 const PORT = process.env.PORT || 8080;
 
