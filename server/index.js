@@ -18,8 +18,8 @@ import {
 
 import { postApiv1Signup, postApiv1Login } from "./controllers/user.js";
 
-const app = express();
 const __dirname = path.resolve();
+const app = express();
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
