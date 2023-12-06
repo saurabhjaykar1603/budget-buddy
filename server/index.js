@@ -2,7 +2,6 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-
 import path from "path";
 
 import { getApiHealth } from "./controllers/health.js";
@@ -18,8 +17,10 @@ import {
 
 import { postApiv1Signup, postApiv1Login } from "./controllers/user.js";
 
-const __dirname = path.resolve();
 const app = express();
+app.use(express.json());
+
+const __dirname = path.resolve();
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -32,8 +33,6 @@ app.use(function (req, res, next) {
 
   next();
 });
-
-app.use(express.json());
 
 const connDB = async () => {
   const conn = await mongoose.connect(process.env.MONGO_DB_URI);
