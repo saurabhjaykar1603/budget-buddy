@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import showToast from "crunchy-toast";
 import axios from "axios";
 import swal from "sweetalert";
+import Footer from "../../components/Footer/Footer";
 
 function AddTransaction() {
   const [amount, setAmount] = useState("");
@@ -166,6 +167,9 @@ function AddTransaction() {
             </button>
           </div>
         </div>
+      </div>
+      <div className="mt-10">
+        <Footer />
       </div>
     </div>
   );

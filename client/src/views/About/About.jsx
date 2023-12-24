@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { FaLinkedin, FaSquare, FaGithub } from "react-icons/fa";
 import { SiPeerlist } from "react-icons/si";
 import { MdEmail } from "react-icons/md";
+import Footer from "../../components/Footer/Footer";
 
 function About() {
   return (
@@ -72,6 +73,9 @@ function About() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="mt-10">
+        <Footer />
       </div>
     </div>
   );

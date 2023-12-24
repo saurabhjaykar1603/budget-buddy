@@ -7,6 +7,7 @@ import { FaEdit } from "react-icons/fa";
 import { FaClipboardList } from "react-icons/fa";
 import { BsRocketTakeoff } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import Footer from "../../components/Footer/Footer";
 function Home() {
   return (
     <div>
@@ -101,6 +102,9 @@ function Home() {
           </div>
         </div>
       </section>
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 }
