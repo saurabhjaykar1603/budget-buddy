@@ -5,3 +5,6 @@ body {
   padding: 0;
   margin: 0;
 }
+::selection {
+  color: #dba307 !important;
+}
