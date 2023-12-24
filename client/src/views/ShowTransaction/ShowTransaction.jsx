@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
 import deletePng from "./delete.png";
 import editPng from "./edit.png";
+import "./ShowTransaction.css"
 
 function ShowTransaction() {
   const [user, setUser] = useState({});
@@ -115,9 +116,9 @@ function ShowTransaction() {
           gift: "Gift 🎁  ",
         };
         return (
-          <div className="p-3" key={i}>
-            <div
-              className="transaction-card  border-2 my-3 lg:w-3/6 md:w-4/5  mx-auto p-4 py-6 rounded-md relative"
+          <div className="p-3 " key={i}>
+            <div data-aos="zoom-in"
+              className=  "transaction-card  border-2 my-3 lg:w-3/6 md:w-4/5  mx-auto p-4 py-6 rounded-md relative"
               style={{ boxShadow: "3px 3px 2px rgba(0, 0, 0, 0.3)" }}
             >
               <p className=" lg:text-base sm:text-base, mt-5 lg:mt-0">
@@ -147,7 +148,7 @@ function ShowTransaction() {
                 {CATEGORY_EMOJI_MAP[category]}
               </p>
               <div className="border-b border border-gray-300 my-3"></div>
-              <div className="description-container">
+              <div className="description-container py-2">
                 <p className="text-gray-800">{description}</p>
               </div>
               <img
