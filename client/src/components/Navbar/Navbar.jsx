@@ -47,14 +47,19 @@ const Navbar = () => {
               to="/show_translations"
               className="text-dark  hover:text-red-700"
             >
-              Show Transactions
+              Show Transactionsd
             </Link>
-            <Link to="/signup" className="text-dark  hover:text-red-700">
-              Signup
-            </Link>
-            <Link to="/login" className="text-dark  hover:text-red-700">
-              Login
-            </Link>
+            {user.userName ? null : (
+              <>
+                <Link to="/signup" className="text-dark hover:text-red-700">
+                  Signup
+                </Link>
+                <Link to="/login" className="text-dark hover:text-red-700">
+                  Login
+                </Link>
+              </>
+            )}
+
             <span className="text-dark cursor-pointer">
               Hello {user?.userName || "User "} ! "👋"
             </span>
@@ -132,18 +137,16 @@ const Navbar = () => {
           >
             Show Transactions
           </Link>
-          <Link
-            to="/signup"
-            className="block py-2 text-dark  hover:text-red-700"
-          >
-            Signup
-          </Link>
-          <Link
-            to="/login"
-            className="block py-2 text-dark  hover:text-red-700"
-          >
-            Login
-          </Link>
+          {user.userName ? null : (
+              <>
+                <Link to="/signup" className="text-dark block py-2 hover:text-red-700">
+                  Signup
+                </Link>
+                <Link to="/login" className="text-dark block py-2 hover:text-red-700">
+                  Login
+                </Link>
+              </>
+            )}
           <p className="block py-2 text-dark  hover:text-red-700 cursor-pointer ">
             <span className="text-dark cursor-pointer mt-10">
               Hello {user?.userName || "User "} ! "👋"
