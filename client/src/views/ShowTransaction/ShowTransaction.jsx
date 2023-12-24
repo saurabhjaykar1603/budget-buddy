@@ -120,7 +120,7 @@ function ShowTransaction() {
           <div className="p-3 " key={i}>
             <div
               data-aos="zoom-in"
-              className="transaction-card  border-2 my-3 lg:w-3/6 md:w-4/5  mx-auto p-4 py-6 rounded-md relative"
+              className="transaction-card  border-2 my-1 lg:w-3/6 md:w-4/5  mx-auto p-4 py-6 rounded-md relative"
               style={{ boxShadow: "3px 3px 2px rgba(0, 0, 0, 0.3)" }}
             >
               <p className=" lg:text-base sm:text-base, mt-5 lg:mt-0">
@@ -200,7 +200,7 @@ function ShowTransaction() {
           </div>
         );
       })}
-      <div className="mt-10">
+      <div className="footer">
         <Footer />
       </div>
     </div>

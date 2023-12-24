@@ -1,0 +1,7 @@
+.footer {
+  position: fixed;
+  bottom: -90px;
+  width: 100%;
+  background-color: #fff; /* Adjust the background color as needed */
+  border-top: 1px solid #ddd; /* Add a border at the top of the footer */
+}
