@@ -4,6 +4,7 @@ import showToast from "crunchy-toast";
 import axios from "axios";
 import swal from "sweetalert";
 import Footer from "../../components/Footer/Footer";
+import "./AddTransaction.css"
 
 function AddTransaction() {
   const [amount, setAmount] = useState("");
@@ -64,14 +65,14 @@ function AddTransaction() {
         <Navbar />
       </div>
       <div className=" mx-auto addtransaction-text">
-        <h1 className="text-center mt-10  sm:text-3xl  font-bold text-xl text-red-500  ">
+        <h1 className="text-center mt-5  sm:text-3xl  font-bold text-xl text-red-500  ">
           Add Your Transactions
         </h1>
       </div>
 
       <div className="">
         <div
-          className=" w-full sm:w-96 md:w-96 lg:w-96 xl:w-96 2xl:w-96 h-auto mx-auto mt-10 p-4 rounded-md"
+          className=" w-full sm:w-96 md:w-96 lg:w-96 xl:w-96 2xl:w-96 h-auto mx-auto mt-5 mb-6 p-4 rounded-md"
           style={{ boxShadow: "2px 2px 8px rgb(0,0,0,0.3)" }}
         >
           <div className="form-container">
@@ -168,7 +169,7 @@ function AddTransaction() {
           </div>
         </div>
       </div>
-      <div className="mt-10">
+      <div className="mt-20">
         <Footer />
       </div>
     </div>
