@@ -19,7 +19,7 @@ function Home() {
           <h1 class="text-5xl font-bold mb-4">
             Welcome to <span className="text-red-700">Budget Buddy !</span>
           </h1>
-          <p class="text-gray-700">
+          <p class="text-gray-700 mb-4">
             Our easy-to-use expense tracker lets you add, delete, and update
             transactions with a breeze. Set realistic budgets, gain insights
             into your spending, and stay in control. Whether you're a budgeting
@@ -27,15 +27,18 @@ function Home() {
             way. Say goodbye to financial stress and hello to a more organized
             financial future!
           </p>
-          <div className="mt-8">
-         <Link to="/login">   <button  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">
-              <div className="flex justify-center items-center gap-x-2 font-bold">
-                <span>Get Started</span>{" "}
-                <span>
-                  <BsRocketTakeoff />
-                </span>
-              </div>
-            </button> </Link>
+          <div className="lg:mt-3 md:mt-5 sm:mt-2 xm:mt-2 ">
+            <Link to="/login">
+              {" "}
+              <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">
+                <div className="flex justify-center items-center gap-x-2 font-bold">
+                  <span>Get Started</span>{" "}
+                  <span>
+                    <BsRocketTakeoff />
+                  </span>
+                </div>
+              </button>{" "}
+            </Link>
           </div>
         </div>
 
@@ -52,10 +55,14 @@ function Home() {
       </div>
 
       <section>
-        <div className=" container mx-auto mt-10 ">
+        <div className="container mx-auto my-1 sm:my-1 md:my-5 lg:my-10">
           <div class="flex flex-wrap gap-x-3 items-center justify-evenly">
             <div className="w-50 py-2">
-              <img src={featImg} alt="" className="h-[260px] block mx-auto" />
+              <img
+                src={featImg}
+                alt=""
+                className=" lg:h-[300px] xl:h-[350px] sm:h-[20px] block mx-auto"
+              />
             </div>
             <div className="left w-50">
               <div className="flex flex-wrap justify-evenly gap-x-3 gap-y-3 items-center mb-4">
